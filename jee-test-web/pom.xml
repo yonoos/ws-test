@@ -20,36 +20,18 @@
 
 		<plugins>
 			<!-- -->
-			<!-- <plugin>
-				<groupId>org.jvnet.jax-ws-commons</groupId>
-				<artifactId>jaxws-maven-plugin</artifactId>
-				<version>2.2</version>
-				<executions>
-					<execution>  
-						<id>wsimport-from-jdk</id>
-						<goals>
-							<goal>wsimport</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<vmArgs>
-						<vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
-					</vmArgs>
-					<wsdlUrls>
-						<wsdlUrl>http://localhost:9991/ws/SumService?wsdl</wsdlUrl>
-					</wsdlUrls>
-					<packageName>yc.jee.test.ws.soap.endpoint.gen</packageName>
-					<sourceDestDir>${project.build.directory}/generated-sources/jaxws-wsimport</sourceDestDir>
-					<encoding>UTF-8</encoding>
-					<keep>true</keep>
-				</configuration>
-			</plugin> -->
+			<!-- <plugin> <groupId>org.jvnet.jax-ws-commons</groupId> <artifactId>jaxws-maven-plugin</artifactId> 
+				<version>2.2</version> <executions> <execution> <id>wsimport-from-jdk</id> 
+				<goals> <goal>wsimport</goal> </goals> </execution> </executions> <configuration> 
+				<vmArgs> <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg> </vmArgs> <wsdlUrls> 
+				<wsdlUrl>http://localhost:9991/ws/SumService?wsdl</wsdlUrl> </wsdlUrls> <packageName>yc.jee.test.ws.soap.endpoint.gen</packageName> 
+				<sourceDestDir>${project.build.directory}/generated-sources/jaxws-wsimport</sourceDestDir> 
+				<encoding>UTF-8</encoding> <keep>true</keep> </configuration> </plugin> -->
 
-		<!-- 	<plugin>
+			<plugin>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-java2wsdl-maven-plugin</artifactId>
-				<version>1.5.4</version>
+				<version>1.7.7</version>
 				<executions>
 					<execution>
 						<phase>process-classes</phase>
@@ -59,10 +41,10 @@
 					</execution>
 				</executions>
 				<configuration>
-					<className>com.ratra.ws.MavenAxis2WS.MavenAxis2WebService</className>
-					<outputFileName>${project.build.directory}/MavenAxis2WebService.wsdl</outputFileName>
+					<className>yc.jee.test.ws.soap.axis.MyAxisWS</className>
+					<outputFileName>${project.build.directory}/MyAxisWS.wsdl</outputFileName>
 				</configuration>
-			</plugin> -->
+			</plugin>
 
 
 		</plugins>
@@ -113,6 +95,14 @@
 		<dependency>
 			<groupId>org.apache.xmlbeans</groupId>
 			<artifactId>xmlbeans</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-adb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-jaxws</artifactId>
 		</dependency>
 
 	</dependencies>

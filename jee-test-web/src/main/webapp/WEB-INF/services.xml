@@ -1,0 +1,17 @@
+<serviceGroup>
+  <service name="MyAxisWS" targetNamespace="http://webservice.MyAxisWS/">
+    <description>MyAxisWS</description>
+    <schema schemaNamespace="http://webservice.MyAxisWS/" />
+    <parameter name="ServiceClass" locked="false">yc.jee.test.ws.soap.axis.MyAxisWS</parameter>
+    
+     <operation name="echo">
+        <messageReceiver class="org.apache.axis2.receivers.RawXMLINOutMessageReceiver"/>
+        <actionMapping>urn:echo</actionMapping>
+    </operation>
+     <operation name="ping">
+        <messageReceiver class="org.apache.axis2.receivers.RawXMLINOnlyMessageReceiver"/>
+        <actionMapping>urn:ping</actionMapping>
+    </operation>
+    
+  </service>
+</serviceGroup>
