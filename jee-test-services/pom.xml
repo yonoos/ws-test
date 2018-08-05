@@ -9,5 +9,5 @@
 	</parent>
 	<artifactId>jee-test-services</artifactId>
 	<name>jee-test-services</name>
-	<packaging>jar</packaging>
+	<packaging>jar</packaging> 
 </project>

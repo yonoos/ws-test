@@ -6,7 +6,7 @@
 	<artifactId>jee.test</artifactId>
 	<version>${global.version}</version>
 	<packaging>pom</packaging>
-	<name>JEE TEST</name>
+	<name>JEE TEST</name> 
 
 	<repositories>
 		<repository>
