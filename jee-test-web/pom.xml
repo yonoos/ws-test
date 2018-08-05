@@ -1,202 +1,187 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>yc</groupId>
-	<artifactId>jee.test</artifactId>
-	<version>${global.version}</version>
-	<packaging>pom</packaging>
-	<name>JEE TEST</name>
+	<parent>
+		<groupId>yc</groupId>
+		<artifactId>jee.test</artifactId>
+		<version>${global.version}</version>
+	</parent>
+	<artifactId>jee-test-web</artifactId>
+	<packaging>war</packaging>   
+	<name>jee-test-web app</name>  
+	<build>
+		<finalName>jee-test-web</finalName>
+		<defaultGoal>package</defaultGoal>
 
-	<repositories>
-		<repository>
-			<id>java.net</id>
-			<url>https://maven.java.net/content/repositories/public/</url>
-		</repository>
-		<repository>
-			<id>JBoss repository</id>
-			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
-		</repository>
+		<plugins>
+			<!-- -->
+			<!-- <plugin> <groupId>org.jvnet.jax-ws-commons</groupId> <artifactId>jaxws-maven-plugin</artifactId> 
+				<version>2.2</version> <executions> <execution> <id>wsimport-from-jdk</id> 
+				<goals> <goal>wsimport</goal> </goals> </execution> </executions> <configuration> 
+				<vmArgs> <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg> </vmArgs> <wsdlUrls> 
+				<wsdlUrl>http://localhost:9991/ws/SumService?wsdl</wsdlUrl> </wsdlUrls> <packageName>yc.jee.test.ws.soap.endpoint.gen</packageName> 
+				<sourceDestDir>${project.build.directory}/generated-sources/jaxws-wsimport</sourceDestDir> 
+				<encoding>UTF-8</encoding> <keep>true</keep> </configuration> </plugin> -->
 
-	</repositories>
+		 	<!-- <plugin>
+				<groupId>org.apache.axis2</groupId>
+				<artifactId>axis2-java2wsdl-maven-plugin</artifactId>
+				<version>1.7.7</version>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>java2wsdl</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<className>yc.jee.test.ws.soap.axis.MyAxisWS</className>
+					<outputFileName>${project.build.directory}/MyAxisWS.wsdl</outputFileName>
+				</configuration>
+			</plugin>  -->
 
-	<modules>
-		<module>jee-test-web</module>
-		<module>jee-test-ejb</module>
-		<module>jee.test-ear</module>
-		<module>jee-test-services</module>
-		<module>jee-test-services-impl</module>
-	</modules>
 
-	<properties>
-		<java.version>1.8</java.version>
-		<global.version>1.1.1</global.version>
-		<maven.compiler.source>${java.version}</maven.compiler.source>
-		<maven.compiler.target>${java.version}</maven.compiler.target>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+		</plugins>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
+	</build>
+
+
+
+	<dependencies>
+
+		<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>3.8.1</version>
 				<scope>test</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>javax</groupId>
 				<artifactId>javaee-api</artifactId>
-				<version>7.0</version>
 				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>jstl</groupId>
 				<artifactId>jstl</artifactId>
-				<version>1.2</version>
 				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>javax.servlet-api</artifactId>
-				<version>3.1.0</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2</artifactId>
-				<version>1.4.1</version>
 				<type>pom</type>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-adb</artifactId>
-				<version>1.4.1</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-adb-codegen</artifactId>
-				<version>1.4.1</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-clustering</artifactId>
-				<version>1.4.1</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-codegen</artifactId>
-				<version>1.4.1</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-corba</artifactId>
-				<version>1.4.1</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-fastinfoset</artifactId>
-				<version>1.4.1</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-java2wsdl</artifactId>
-				<version>1.4.1</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
-				<artifactId>axis2-jaxbri</artifactId>
-				<version>1.4.1</version>
+				<artifactId>axis2-jaxbri</artifactId> 
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.apache.axis2</groupId>
+				<groupId>org.apache.axis2</groupId> 
 				<artifactId>axis2-jaxws</artifactId>
-				<version>1.4.1</version>
 				<scope>runtime</scope>
-			</dependency>
+			</dependency> 
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
-				<artifactId>axis2-jibx</artifactId>
-				<version>1.4.1</version>
-				<scope>runtime</scope>
+				<artifactId>axis2-jibx</artifactId> 
+				<scope>runtime</scope> 
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-json</artifactId>
-				<version>1.4.1</version>
-				<scope>runtime</scope>
+				<scope>runtime</scope> 
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-jws-api</artifactId>
-				<version>1.4.1</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-metadata</artifactId>
-				<version>1.4.1</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-mtompolicy</artifactId>
-				<version>1.4.1</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-saaj</artifactId>
-				<version>1.4.1</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-saaj-api</artifactId>
-				<version>1.4.1</version>
 				<scope>runtime</scope>
 			</dependency>
-			<dependency>
+			<dependency> 
 				<groupId>org.apache.xmlbeans</groupId>
 				<artifactId>xmlbeans</artifactId>
-				<version>2.6.0</version>
 				<scope>runtime</scope>
 			</dependency>
-
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-transport-http</artifactId>
-				<version>1.5.6</version>
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-transport-local</artifactId>
-				<version>1.5.6</version>
 				<scope>runtime</scope>
-			</dependency>
+			</dependency> 
 			<dependency>
 				<groupId>com.ibm.icu</groupId>
 				<artifactId>icu4j</artifactId>
-				<version>4.8.1</version>
 				<scope>runtime</scope>
 			</dependency>
 
-
-		</dependencies>
-	</dependencyManagement>
-
+	</dependencies>
 
 </project>
