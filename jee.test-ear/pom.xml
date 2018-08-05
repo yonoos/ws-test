@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>yc</groupId>
+		<artifactId>jee.test</artifactId>
+		<version>${global.version}</version>
+	</parent>
+	<artifactId>jee.test-ear</artifactId>
+	<name>jee.test-ear</name>
+	<packaging>ear</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<version>7</version>
+					<!-- <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
+					<modules>
+						<ejbModule>
+							<groupId>yc</groupId>
+							<artifactId>jee-test-ejb</artifactId>
+							<bundleFileName>jee-test-ejb.jar</bundleFileName>
+						</ejbModule>
+						<webModule>
+							<groupId>yc</groupId>
+							<artifactId>jee-test-web</artifactId>
+							<bundleFileName>jee-test-web.war</bundleFileName>
+							<contextRoot>/web</contextRoot>
+						</webModule>
+					</modules>
+					<displayName>jee-test-ear</displayName>
+					<!-- If I want maven to generate the application.xml, set this to true -->
+					<generateApplicationXml>true</generateApplicationXml>
+				</configuration>
+			</plugin>
+			<!-- <plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>1.2.2.Final</version>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>redeploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin> -->
+		</plugins>
+		<finalName>jee-test.ear</finalName>
+	</build>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>yc</groupId>
+			<artifactId>jee-test-web</artifactId>
+			<version>${global.version}</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>yc</groupId>
+			<artifactId>jee-test-ejb</artifactId>
+			<version>${global.version}</version>
+			<type>ejb</type>
+		</dependency>
+
+	</dependencies>
+
+</project>

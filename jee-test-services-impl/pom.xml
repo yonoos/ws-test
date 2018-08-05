@@ -1,0 +1,27 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>yc</groupId>
+		<artifactId>jee.test</artifactId>
+		<version>${global.version}</version>
+	</parent>
+	<artifactId>jee-test-services-impl</artifactId>
+	<name>jee-test-services-impl</name>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>yc</groupId>
+			<artifactId>jee-test-services</artifactId>
+			<version>${global.version}</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+</project>
