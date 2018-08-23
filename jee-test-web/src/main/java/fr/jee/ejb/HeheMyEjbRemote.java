@@ -1,6 +1,6 @@
 package fr.jee.ejb;
 
-public interface MyEjbRemote {
+public interface HeheMyEjbRemote {
 	
 	int doit(int a, int b);
 

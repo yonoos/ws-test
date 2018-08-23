@@ -1,9 +1,9 @@
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1">
-         
+	version="3.1">
+
 	<display-name>JEE TEST APP</display-name>
 	<servlet>
 		<servlet-name>HelloWorld</servlet-name>
@@ -13,4 +13,21 @@
 		<servlet-name>HelloWorld</servlet-name>
 		<url-pattern>/hello</url-pattern>
 	</servlet-mapping>
+
+
+	<ejb-local-ref>
+		<ejb-ref-name>add</ejb-ref-name>
+		<local>fr.jee.ejb.MyEjbLocal</local>
+		<ejb-link>add</ejb-link>
+	</ejb-local-ref>
+	<ejb-local-ref>
+		<ejb-ref-name>multi</ejb-ref-name>
+		<local>fr.jee.ejb.MyEjbLocal</local>
+		<ejb-link>multi</ejb-link>
+	</ejb-local-ref>
+	<ejb-local-ref>
+		<ejb-ref-name>hello</ejb-ref-name>
+		<local>fr.jee.ejb.MyEjbLocal</local>
+		<ejb-link>hello</ejb-link>
+	</ejb-local-ref>
 </web-app>

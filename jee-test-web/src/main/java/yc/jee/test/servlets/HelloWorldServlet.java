@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.jee.ejb.MyEjbRemote;
+import fr.jee.ejb.HeheMyEjbRemote;
 
 /**
  * Servlet implementation class HelloWorldServlet
@@ -25,16 +25,16 @@ public class HelloWorldServlet extends HttpServlet {
 	private static final String RESULT_MESSAGE_INPUT_NAME = "results";
 	
 //	@EJB(lookup="ejb:jee-test/jee-test-ejb/add!fr.jee.ejb.MyEjbRemote")
-	@EJB(beanName="add")
-	private  MyEjbRemote addBean;
+	@EJB(name="add", beanName="add")
+	private  HeheMyEjbRemote addBean;
 	
 //	@EJB(lookup="ejb:jee-test/jee-test-ejb/multi!fr.jee.ejb.MyEjbRemote")
-	@EJB(beanName="multi")
-	private  MyEjbRemote multiBean;
+//	@EJB(name="multi", beanName="multi")
+	private  HeheMyEjbRemote multiBean;
 	
 //	@EJB(lookup="ejb:jee-test/jee-test-ejb/hello!fr.jee.ejb.MyEjbRemote")
-	@EJB(beanName="hello")
-	private  MyEjbRemote helloBean;
+//	@EJB(name="hello",beanName="hello")
+	private  HeheMyEjbRemote helloBean;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -92,7 +92,7 @@ public class HelloWorldServlet extends HttpServlet {
 //			props.setProperty("java.naming.factory.url.pkgs","org.jboss.naming:org.jnp.interfaces");
 
 			InitialContext ctx = new InitialContext();
-			addBean = (MyEjbRemote)ctx.lookup("ejb:jee-test/jee-test-ejb/add!fr.jee.ejb.MyEjbRemote");
+			addBean = (HeheMyEjbRemote)ctx.lookup("ejb:jee-test/jee-test-ejb/add!fr.jee.ejb.MyEjbRemote");
 			addBean.doit(2, 4);
 			
 		} catch (NamingException e) {
