@@ -7,9 +7,7 @@
 		<artifactId>jee.test</artifactId>
 		<version>${global.version}</version>
 	</parent>
-	<artifactId>jee-test-services-impl</artifactId>
-	<name>jee-test-services-impl</name>
-	<packaging>jar</packaging>
+	<artifactId>jee-test-common</artifactId>
 
 	<dependencies>
 		<dependency>
@@ -17,17 +15,6 @@
 			<artifactId>javaee-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>yc</groupId>
-			<artifactId>jee-test-services</artifactId>
-			<version>${global.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>yc</groupId>
-			<artifactId>jee-test-common</artifactId>
-			<version>${global.version}</version>
-			<scope>compile</scope>
-		</dependency>
 	</dependencies>
+
 </project>

@@ -26,6 +26,7 @@
 		<module>jee.test-ear</module>
 		<module>jee-test-services</module>
 		<module>jee-test-services-impl</module>
+		<module>jee-test-common</module>
 	</modules>
 
 	<properties>
