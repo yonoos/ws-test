@@ -19,7 +19,7 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage('Location') {
+        stage('Locations') {
             steps {
                 sh 'pwd'
             }
