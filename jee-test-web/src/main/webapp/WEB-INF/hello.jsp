@@ -6,9 +6,14 @@
 <title>Calculator</title>
 </head>
 <body>
+	
+	
 
 	<form method="post">
 		<table>
+		    <tr>
+			   <td><p>${heapInfo}</p></td>
+		   <tr>
 		   <tr>
 			   <td><p>${results}</p></td>
 		   <tr>

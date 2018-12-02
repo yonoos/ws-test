@@ -1,6 +1,7 @@
 package yc.jee.test.servlets;
 
 import java.io.IOException;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.jee.ejb.HeheMyEjbRemote;
+import fr.jee.ejb.MyEjbRemote;
 
 /**
  * Servlet implementation class HelloWorldServlet
@@ -23,18 +24,20 @@ public class HelloWorldServlet extends HttpServlet {
 	private static final String OPERATOR_INPUT_NAME="operator"; 
 	private static final String IMPLEMENTED_OPERATORS_INPUT_NAME = "available_operatros";
 	private static final String RESULT_MESSAGE_INPUT_NAME = "results";
+	private static final String RESULT_HEAP_INFO = "heapInfo";
+
 	
-//	@EJB(lookup="ejb:jee-test/jee-test-ejb/add!fr.jee.ejb.MyEjbRemote")
-	@EJB(name="add", beanName="add")
-	private  HeheMyEjbRemote addBean;
+	@EJB(lookup="java:global/jee-test.ear/jee-test-ejb/add!fr.jee.ejb.MyEjbRemote")
+//	@EJB(name="add", beanName="add")
+	private  MyEjbRemote addBean;
 	
-//	@EJB(lookup="ejb:jee-test/jee-test-ejb/multi!fr.jee.ejb.MyEjbRemote")
+	@EJB(lookup="java:global/jee-test.ear/jee-test-ejb/multi!fr.jee.ejb.MyEjbRemote")
 //	@EJB(name="multi", beanName="multi")
-	private  HeheMyEjbRemote multiBean;
+	private  MyEjbRemote multiBean;
 	
-//	@EJB(lookup="ejb:jee-test/jee-test-ejb/hello!fr.jee.ejb.MyEjbRemote")
+	@EJB(lookup="java:global/jee-test.ear/jee-test-ejb/hello!fr.jee.ejb.MyEjbRemote")
 //	@EJB(name="hello",beanName="hello")
-	private  HeheMyEjbRemote helloBean;
+	private  MyEjbRemote helloBean;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -92,7 +95,7 @@ public class HelloWorldServlet extends HttpServlet {
 //			props.setProperty("java.naming.factory.url.pkgs","org.jboss.naming:org.jnp.interfaces");
 
 			InitialContext ctx = new InitialContext();
-			addBean = (HeheMyEjbRemote)ctx.lookup("ejb:jee-test/jee-test-ejb/add!fr.jee.ejb.MyEjbRemote");
+			addBean = (MyEjbRemote)ctx.lookup("ejb:jee-test/jee-test-ejb/add!fr.jee.ejb.MyEjbRemote");
 			addBean.doit(2, 4);
 			
 		} catch (NamingException e) {
@@ -108,6 +111,17 @@ public class HelloWorldServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	private void setView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		Runtime runtime = Runtime.getRuntime();
+		String heapInfo = formatSize(runtime.maxMemory())+" "+ formatSize(runtime.totalMemory())+" "+formatSize(runtime.freeMemory());
+		
+		heapInfo += "<br/>";
+		Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+		
+		for (Thread t : threadSet) {
+			//heapInfo += t.getName()+", "+t.getState() +"<br/>";
+		}
+		
+		request.setAttribute(RESULT_HEAP_INFO, heapInfo);
 		request.setAttribute(IMPLEMENTED_OPERATORS_INPUT_NAME, getImplementedOperator());
 		this.getServletContext().getRequestDispatcher("/WEB-INF/hello.jsp").forward(request, response);
 	}
@@ -119,6 +133,12 @@ public class HelloWorldServlet extends HttpServlet {
 	private String [] getImplementedOperator(){
 		return new String[] {"add", "multi","hello"};
 	}
+	
+	public static String formatSize(long v) {
+        if (v < 1024) return v + " B";
+        int z = (63 - Long.numberOfLeadingZeros(v)) / 10;
+        return String.format("%.1f %sB", (double)v / (1L << (z*10)), " KMGTPE".charAt(z));
+    }
 
 
 
