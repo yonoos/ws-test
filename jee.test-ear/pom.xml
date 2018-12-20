@@ -18,6 +18,10 @@
 		<project.artifactId>${project.artifactId}</project.artifactId>
 		<base.image>jboss/wildfly:13.0.0.Final</base.image>
 		<image.user>yonoos</image.user>
+		<image.tag>${image.user}/${project.artifactId}:${project.version}</image.tag>
+		<fabric8.verbose>true</fabric8.verbose>
+		<fabric8.mode>kubernetes</fabric8.mode>
+		<docker.registry>docker.io</docker.registry>
 	</properties>
 
 	<build>
@@ -76,7 +80,7 @@
 						<image>
 							<name>${image.user}/${project.artifactId}:${project.version}</name>
 							<!-- "alias" is used to correlate to the containers in the pod spec -->
-							<alias>hello-docker</alias>
+							<alias>${image.tag}</alias>
 							<build>
 								<from>${base.image}</from>
 								<assembly>
@@ -86,6 +90,17 @@
 							</build>
 						</image>
 					</images>
+					<mappings>
+						<mapping>
+							<kind>Service</kind>
+							<filenameTypes>service.yaml</filenameTypes>
+						</mapping>
+						<mapping>
+							<kind>Deployment</kind>
+							<filenameTypes>deployment.yaml</filenameTypes>
+						</mapping>
+					</mappings>
+					<registry>${docker.registry}</registry>
 				</configuration>
 			</plugin>
 

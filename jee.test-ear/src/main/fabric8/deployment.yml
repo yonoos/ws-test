@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ${project.artifactId}
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: ${project.artifactId}
+    spec:
+      containers:
+        - name: ${project.artifactId}
+          image: ${image.tag}
+          ports:
+            - name: http-port
+              containerPort: 8080
