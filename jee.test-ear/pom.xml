@@ -22,6 +22,8 @@
 		<fabric8.verbose>true</fabric8.verbose>
 		<fabric8.mode>kubernetes</fabric8.mode>
 		<docker.registry>docker.io</docker.registry>
+		<docker.username>docker-user</docker.username>
+		<docker.password>docker-pwd</docker.password>
 	</properties>
 
 	<build>
@@ -82,6 +84,7 @@
 							<!-- "alias" is used to correlate to the containers in the pod spec -->
 							<alias>${image.tag}</alias>
 							<build>
+								<dockerFile></dockerFile>
 								<from>${base.image}</from>
 								<assembly>
 									<basedir>/standalone/deployments</basedir>
@@ -90,14 +93,24 @@
 							</build>
 						</image>
 					</images>
+					<authConfig>
+						<push>
+							<username>${docker.username}}</username>
+							<password>${docker.password}</password>
+						</push>
+					</authConfig>
 					<mappings>
 						<mapping>
+							<kind>Namespace</kind>
+							<filenameTypes>namespace.yml</filenameTypes>
+						</mapping>
+						<mapping>
 							<kind>Service</kind>
-							<filenameTypes>service.yaml</filenameTypes>
+							<filenameTypes>service.yml</filenameTypes>
 						</mapping>
 						<mapping>
 							<kind>Deployment</kind>
-							<filenameTypes>deployment.yaml</filenameTypes>
+							<filenameTypes>deployment.yml</filenameTypes>
 						</mapping>
 					</mappings>
 					<registry>${docker.registry}</registry>
