@@ -27,15 +27,15 @@ public class HelloWorldServlet extends HttpServlet {
 	private static final String RESULT_HEAP_INFO = "heapInfo";
 
 	
-	@EJB(lookup="java:global/jee-test.ear/jee-test-ejb/add!fr.jee.ejb.MyEjbRemote")
+	@EJB(lookup="java:app/jee-test-ejb/add!fr.jee.ejb.MyEjbRemote")
 //	@EJB(name="add", beanName="add")
 	private  MyEjbRemote addBean;
 	
-	@EJB(lookup="java:global/jee-test.ear/jee-test-ejb/multi!fr.jee.ejb.MyEjbRemote")
+	@EJB(lookup="java:app/jee-test-ejb/multi!fr.jee.ejb.MyEjbRemote")
 //	@EJB(name="multi", beanName="multi")
 	private  MyEjbRemote multiBean;
 	
-	@EJB(lookup="java:global/jee-test.ear/jee-test-ejb/hello!fr.jee.ejb.MyEjbRemote")
+	@EJB(lookup="java:app/jee-test-ejb/hello!fr.jee.ejb.MyEjbRemote")
 //	@EJB(name="hello",beanName="hello")
 	private  MyEjbRemote helloBean;
 

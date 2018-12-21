@@ -18,12 +18,13 @@
 		<project.artifactId>${project.artifactId}</project.artifactId>
 		<base.image>jboss/wildfly:13.0.0.Final</base.image>
 		<image.user>yonoos</image.user>
-		<image.tag>${image.user}/${project.artifactId}:${project.version}</image.tag>
-		<fabric8.verbose>true</fabric8.verbose>
+		<fabric8.verbose>false</fabric8.verbose>
 		<fabric8.mode>kubernetes</fabric8.mode>
-		<docker.registry>docker.io</docker.registry>
-		<docker.username>docker-user</docker.username>
-		<docker.password>docker-pwd</docker.password>
+		<cloud.tenacy>wexlog2018</cloud.tenacy>
+		<docker.registry>fra.ocir.io</docker.registry>
+		<docker.username>wexlog2018/ychandarli@wexlog.com</docker.username>
+		<docker.password>B>w5NCDk(3y[nzr2GyKr</docker.password>
+		<image.tag>${cloud.tenacy}/${image.user}/${project.artifactId}:${project.version}</image.tag>
 	</properties>
 
 	<build>
@@ -58,36 +59,23 @@
 					<generateApplicationXml>true</generateApplicationXml>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.wildfly.plugins</groupId>
-				<artifactId>wildfly-maven-plugin</artifactId>
-				<version>2.0.0.Final</version>
-				<configuration>
-					<hostname>127.0.0.1</hostname>
-					<port>9990</port>
-					<username>admin</username>
-					<password>admin#admin</password>
-				</configuration>
-			</plugin>
-
+			
 			<!-- Docker and Kubernetes mvn package docker:build docker:run -->
 			<plugin>
 				<groupId>io.fabric8</groupId>
 				<artifactId>fabric8-maven-plugin</artifactId>
-				<version>3.5.42</version>
+				<version>4.0.0-M2</version>
 				<configuration>
 					<!-- Standard d-m-p configuration which defines how images are build, 
 						i.e. how the docker.tar is created -->
 					<images>
 						<image>
-							<name>${image.user}/${project.artifactId}:${project.version}</name>
+							<name>${image.tag}</name>
 							<!-- "alias" is used to correlate to the containers in the pod spec -->
 							<alias>${image.tag}</alias>
 							<build>
-								<dockerFile></dockerFile>
-								<from>${base.image}</from>
+								<dockerFileDir>${project.basedir}/src/main/docker</dockerFileDir>
 								<assembly>
-									<basedir>/standalone/deployments</basedir>
 									<descriptorRef>artifact</descriptorRef>
 								</assembly>
 							</build>
@@ -98,6 +86,10 @@
 							<username>${docker.username}}</username>
 							<password>${docker.password}</password>
 						</push>
+						<pull>
+							<username>${docker.username}}</username>
+							<password>${docker.password}</password>
+						</pull>
 					</authConfig>
 					<mappings>
 						<mapping>
@@ -118,7 +110,6 @@
 			</plugin>
 
 		</plugins>
-		<finalName>jee-test.ear</finalName>
 	</build>
 
 
