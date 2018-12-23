@@ -21,9 +21,10 @@
 		<fabric8.verbose>false</fabric8.verbose>
 		<fabric8.mode>kubernetes</fabric8.mode>
 		<cloud.tenacy>wexlog2018</cloud.tenacy>
-		<docker.registry>fra.ocir.io</docker.registry>
+		<!-- <docker.registry>fra.ocir.io</docker.registry> -->
 		<docker.username>wexlog2018/ychandarli@wexlog.com</docker.username>
-		<docker.password>B>w5NCDk(3y[nzr2GyKr</docker.password>
+		<docker.password>q1viiKoi</docker.password> 
+		<!-- :g8ZQTSyS_7a(0B]oO9m -->
 		<image.tag>${cloud.tenacy}/${image.user}/${project.artifactId}:${project.version}</image.tag>
 	</properties>
 
@@ -82,14 +83,14 @@
 						</image>
 					</images>
 					<authConfig>
-						<push>
+						<!-- <push>
 							<username>${docker.username}}</username>
 							<password>${docker.password}</password>
-						</push>
-						<pull>
+						</push> -->
+						<!-- <pull>
 							<username>${docker.username}}</username>
 							<password>${docker.password}</password>
-						</pull>
+						</pull> -->
 					</authConfig>
 					<mappings>
 						<mapping>
