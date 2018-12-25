@@ -16,16 +16,20 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.artifactId>${project.artifactId}</project.artifactId>
+		<app.name>my-app</app.name>
+		<app.namespace>my-namespace</app.namespace>
 		<base.image>jboss/wildfly:13.0.0.Final</base.image>
 		<image.user>yonoos</image.user>
+		<kubernetes.config.file>C:\Users\younes\.kube\config</kubernetes.config.file>
 		<fabric8.verbose>false</fabric8.verbose>
 		<fabric8.mode>kubernetes</fabric8.mode>
 		<cloud.tenacy>wexlog2018</cloud.tenacy>
-		<!-- <docker.registry>fra.ocir.io</docker.registry> -->
+		<docker.registry>fra.ocir.io</docker.registry> 
 		<docker.username>wexlog2018/ychandarli@wexlog.com</docker.username>
-		<docker.password>q1viiKoi</docker.password> 
-		<!-- :g8ZQTSyS_7a(0B]oO9m -->
-		<image.tag>${cloud.tenacy}/${image.user}/${project.artifactId}:${project.version}</image.tag>
+		<docker.password>:g8ZQTSyS_7a(0B]oO9m</docker.password>
+		<!-- <fabric8.namespace>${app.namespace}</fabric8.namespace> -->
+		  
+		<image.tag>${docker.registry}/${cloud.tenacy}/${image.user}/${project.artifactId}:${project.version}</image.tag>
 	</properties>
 
 	<build>
@@ -58,6 +62,7 @@
 					<displayName>jee-test-ear</displayName>
 					<!-- If I want maven to generate the application.xml, set this to true -->
 					<generateApplicationXml>true</generateApplicationXml>
+					
 				</configuration>
 			</plugin>
 			
@@ -83,30 +88,18 @@
 						</image>
 					</images>
 					<authConfig>
-						<!-- <push>
-							<username>${docker.username}}</username>
+						<push>
+							<username>${docker.username}</username>
 							<password>${docker.password}</password>
-						</push> -->
+						</push>
 						<!-- <pull>
 							<username>${docker.username}}</username>
 							<password>${docker.password}</password>
 						</pull> -->
 					</authConfig>
-					<mappings>
-						<mapping>
-							<kind>Namespace</kind>
-							<filenameTypes>namespace.yml</filenameTypes>
-						</mapping>
-						<mapping>
-							<kind>Service</kind>
-							<filenameTypes>service.yml</filenameTypes>
-						</mapping>
-						<mapping>
-							<kind>Deployment</kind>
-							<filenameTypes>deployment.yml</filenameTypes>
-						</mapping>
-					</mappings>
 					<registry>${docker.registry}</registry>
+					
+					
 				</configuration>
 			</plugin>
 
