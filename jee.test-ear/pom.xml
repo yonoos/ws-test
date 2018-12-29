@@ -20,15 +20,18 @@
 		<app.namespace>my-namespace</app.namespace>
 		<base.image>jboss/wildfly:13.0.0.Final</base.image>
 		<image.user>yonoos</image.user>
-		<kubernetes.config.file>C:\Users\younes\.kube\config</kubernetes.config.file>
+		<kubernetes.config.file>C:\Users\younes\.kube\config_toto</kubernetes.config.file>
 		<fabric8.verbose>false</fabric8.verbose>
 		<fabric8.mode>kubernetes</fabric8.mode>
 		<cloud.tenacy>wexlog2018</cloud.tenacy>
-		<docker.registry>fra.ocir.io</docker.registry> 
+		<docker.registry>fra.ocir.io</docker.registry>
 		<docker.username>wexlog2018/ychandarli@wexlog.com</docker.username>
 		<docker.password>:g8ZQTSyS_7a(0B]oO9m</docker.password>
-		<!-- <fabric8.namespace>${app.namespace}</fabric8.namespace> -->
-		  
+		<fabric8.label.container>${app.name}</fabric8.label.container>
+		<fabric8.label.group>${app.name}</fabric8.label.group>
+		<fabric8.label.app>${app.name}</fabric8.label.app>
+		<fabric8.label.provider>${app.name}</fabric8.label.provider>
+		<fabric8.iconRef>${app.name}</fabric8.iconRef>
 		<image.tag>${docker.registry}/${cloud.tenacy}/${image.user}/${project.artifactId}:${project.version}</image.tag>
 	</properties>
 
@@ -39,7 +42,6 @@
 				<version>3.0.1</version>
 				<configuration>
 					<version>7</version>
-					<!-- <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
 					<archive>
 						<manifest>
@@ -60,24 +62,20 @@
 						</webModule>
 					</modules>
 					<displayName>jee-test-ear</displayName>
-					<!-- If I want maven to generate the application.xml, set this to true -->
 					<generateApplicationXml>true</generateApplicationXml>
-					
+
 				</configuration>
 			</plugin>
-			
+
 			<!-- Docker and Kubernetes mvn package docker:build docker:run -->
 			<plugin>
 				<groupId>io.fabric8</groupId>
 				<artifactId>fabric8-maven-plugin</artifactId>
 				<version>4.0.0-M2</version>
 				<configuration>
-					<!-- Standard d-m-p configuration which defines how images are build, 
-						i.e. how the docker.tar is created -->
 					<images>
 						<image>
 							<name>${image.tag}</name>
-							<!-- "alias" is used to correlate to the containers in the pod spec -->
 							<alias>${image.tag}</alias>
 							<build>
 								<dockerFileDir>${project.basedir}/src/main/docker</dockerFileDir>
@@ -87,19 +85,17 @@
 							</build>
 						</image>
 					</images>
+
+					<detail>true</detail>
 					<authConfig>
 						<push>
 							<username>${docker.username}</username>
 							<password>${docker.password}</password>
 						</push>
-						<!-- <pull>
-							<username>${docker.username}}</username>
-							<password>${docker.password}</password>
-						</pull> -->
+						<!-- <pull> <username>${docker.username}}</username> <password>${docker.password}</password> 
+							</pull> -->
 					</authConfig>
 					<registry>${docker.registry}</registry>
-					
-					
 				</configuration>
 			</plugin>
 

@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 metadata:
   name: ${app.name}
-  namespace: ${app.namespace}
 spec:
   selector:
     matchLabels:

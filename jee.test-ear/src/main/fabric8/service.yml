@@ -1,6 +1,5 @@
 metadata:
   name: ${app.name}
-  namespace: ${app.namespace}
 spec:
   ports:
   - name: http
@@ -9,4 +8,4 @@ spec:
     targetPort: 8080
   selector:
     app: ${app.name}
-  type: LoadBalancer
+  type: NodePort
