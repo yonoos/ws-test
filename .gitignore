@@ -53,3 +53,5 @@ jee-test-web/.settings/org.eclipse.m2e.core.prefs
 *.name
 *.prefs
 jee-test-web/.settings/org.eclipse.wst.common.project.facet.core.prefs.xml
+younes.module/.classpath
+younes.module/.project
