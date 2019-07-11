@@ -18,7 +18,7 @@
 		<project.artifactId>${project.artifactId}</project.artifactId>
 		<app.name>my-app</app.name>
 		<app.namespace>my-namespace</app.namespace>
-		<base.image>jboss/wildfly:13.0.0.Final</base.image>
+		<base.image>jboss/wildfly:15.0.0.Final</base.image>
 		<image.user>yonoos</image.user>
 		<kubernetes.config.file>C:\Users\younes\.kube\config_toto</kubernetes.config.file>
 		<fabric8.verbose>false</fabric8.verbose>

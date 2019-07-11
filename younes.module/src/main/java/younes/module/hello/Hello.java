@@ -1,5 +1,9 @@
 package younes.module.hello;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import fr.younes.services.CalService;
 
 public class Hello implements CalService{
@@ -13,8 +17,17 @@ public class Hello implements CalService{
 		return -999999; 
 	}
 	
-	public String hola() {
-		return "yeeeeeeeeeeeeeeeeeeeeeeees !!!!!!!    hola";
+	public String hola() throws IOException {
+		Properties props = new Properties();
+		InputStream is = Hello.class.getResourceAsStream("/hello.properties");
+		props.load(is);
+		return "yeeeeeeeeeeeeeeeeeeeeeeees !!!!!!!    toto "+props;
+	}
+	
+	
+	public static void main(String[] args) throws Exception {
+		Hello hello =  new Hello();
+		System.out.println(hello.hola());
 	}
 	
 }

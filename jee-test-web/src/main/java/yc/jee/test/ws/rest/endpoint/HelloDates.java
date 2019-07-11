@@ -1,5 +1,7 @@
 package yc.jee.test.ws.rest.endpoint;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Date;
@@ -7,6 +9,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.GregorianCalendar;
+import java.util.Properties;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -51,17 +54,22 @@ public class HelloDates {
 		try {
 			Class<?> clazz = Class.forName("younes.module.hello.Hello");
 			
+			Properties props = new Properties();
+			InputStream is = HelloDates.class.getResourceAsStream("/hello.properties");
+			props.load(is);
+			
+			
 			Object object = clazz.newInstance();
 			
 			Method method = clazz.getMethod("hola");
 			
 			Object results = method.invoke(object);
 			if(results != null) {
-				return results.toString();
+				return results.toString()+props.toString();
 			} else {
 				return clazz.getName();
 			}
-		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+		} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | IOException e) {
 			e.printStackTrace();
 			return e.getMessage();
 		}
