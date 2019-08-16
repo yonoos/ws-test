@@ -55,3 +55,9 @@ jee-test-web/.settings/org.eclipse.m2e.core.prefs
 jee-test-web/.settings/org.eclipse.wst.common.project.facet.core.prefs.xml
 younes.module/.classpath
 younes.module/.project
+.vscode/launch.json
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/tasks.json
+jee-test-common/.classpath
+jee-test-common/.classpath
