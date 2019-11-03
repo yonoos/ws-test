@@ -25,7 +25,7 @@
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 						</manifest>
 						<manifestEntries>
-							<Dependencies>yc.younes.module, yc.jee-test-dep-module</Dependencies>
+							<Dependencies>yc.jee-test-common export, yc.jee-test-services export, yc.jee-test-services-impl export </Dependencies>
 						</manifestEntries>
 					</archive>
 					<modules>
