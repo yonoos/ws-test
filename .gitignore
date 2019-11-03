@@ -61,3 +61,13 @@ younes.module/.project
 .vscode/tasks.json
 jee-test-common/.classpath
 jee-test-common/.classpath
+/build/
+.classpath
+.project
+.settings/org.eclipse.wst.common.project.facet.core.xml
+jee-test-common/.classpath
+jee-test-dep-module/.classpath
+jee-test-dep-module/.project
+jee-test-ear-dev/.classpath
+jee-test-ear-dev/.settings/org.eclipse.wst.common.project.facet.core.xml
+src/META-INF/MANIFEST.MF

@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>yc</groupId>
+    <artifactId>jee.test</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>jee-test-ear-dev</artifactId>
+  <name>jee.test-ear-dev</name>
+  <packaging>ear</packaging>
+  
+  
+  	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<version>7</version>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<packagingExcludes>lib/*</packagingExcludes>
+					<archive>
+						<manifest>
+							<addClasspath>false</addClasspath>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<Dependencies>yc.younes.module, yc.jee-test-dep-module</Dependencies>
+						</manifestEntries>
+					</archive>
+					<modules>
+						<ejbModule>
+							<groupId>yc</groupId>
+							<artifactId>jee-test-ejb</artifactId>
+							<bundleFileName>jee-test-ejb.jar</bundleFileName>
+						</ejbModule>
+						<webModule>
+							<groupId>yc</groupId>
+							<artifactId>jee-test-web</artifactId>
+							<bundleFileName>jee-test-web.war</bundleFileName>
+							<contextRoot>/web</contextRoot>
+						</webModule>
+					</modules>
+					<displayName>jee-test-ear</displayName>
+					<generateApplicationXml>true</generateApplicationXml>
+
+				</configuration>
+			</plugin>
+	
+		</plugins>
+	</build>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>yc</groupId>
+			<artifactId>jee-test-web</artifactId>
+			<version>${project.version}</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>yc</groupId>
+			<artifactId>jee-test-ejb</artifactId>
+			<version>${project.version}</version>
+			<type>ejb</type>
+		</dependency>
+
+	</dependencies>
+  
+</project>
