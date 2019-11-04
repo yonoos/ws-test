@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!-- Make sub deployments isolated by default, so they cannot see each others classes without a Class-Path entry -->
+  <ear-subdeployments-isolated>false</ear-subdeployments-isolated>
+  <!-- This corresponds to the top level deployment. For a war this is the war's module, for an ear -->
+  <!-- This is the top level ear module, which contains all the classes in the EAR's lib folder     -->
+  <deployment>
+    <!-- This allows you to define additional dependencies, it is the same as using the Dependencies: manifest attribute -->
+    <dependencies>
+      <module name="yc.jee-test-common" export="true" meta-inf="import" />
+      <module name="yc.jee-test-services" export="true"  meta-inf="import" />
+      <module name="yc.jee-test-services-impl" export="true" meta-inf="import"  />
+    </dependencies>
+  </deployment>
+  
+  
+   <sub-deployment name="jee-test-ejb.jar">
+    <!-- This corresponds to the module for a web deployment -->
+    <!-- it can use all the same tags as the <deployment> entry above -->
+    <dependencies>
+      <!-- Adds a dependency on a ejb jar. This could also be done with a Class-Path entry -->
+      <module name="yc.jee-test-common" export="true" meta-inf="import" />
+      <module name="yc.jee-test-services" export="true"  meta-inf="import" />
+      <module name="yc.jee-test-services-impl" export="true" meta-inf="import"  />
+    </dependencies>
+    <local-last value="true" />
+  </sub-deployment>
+  
+</jboss-deployment-structure>

@@ -24,9 +24,9 @@
 							<addClasspath>false</addClasspath>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 						</manifest>
-						<manifestEntries>
+						<!-- <manifestEntries>
 							<Dependencies>yc.jee-test-common export, yc.jee-test-services export, yc.jee-test-services-impl export </Dependencies>
-						</manifestEntries>
+						</manifestEntries> -->
 					</archive>
 					<modules>
 						<ejbModule>
