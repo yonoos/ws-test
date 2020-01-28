@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<handler-chains xmlns="http://java.sun.com/xml/ns/javaee">
-  <handler-chain>
-    <handler>
-      <handler-name>yc.jee.test.ws.soap.handler.MySoapHandler</handler-name>
-      <handler-class>yc.jee.test.ws.soap.handler.MySoapHandler</handler-class>
-    </handler>
-  </handler-chain>
-</handler-chains>

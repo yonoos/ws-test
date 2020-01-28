@@ -11,7 +11,6 @@ import javax.xml.ws.handler.soap.SOAPMessageContext;
 
 public class MySoapHandler implements SOAPHandler<SOAPMessageContext> {
 	
-	public static final String HANDLER = "/yc/jee/test/ws/soap/handler/handler-chain.xml";
 
 	@Override
 	public boolean handleMessage(SOAPMessageContext context) {
