@@ -14,6 +14,16 @@
 		<url-pattern>/hello</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>RESTEasy WADL</servlet-name>
+		<servlet-class>org.jboss.resteasy.wadl.ResteasyWadlServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>RESTEasy WADL</servlet-name>
+		<url-pattern>/application.xml</url-pattern>
+	</servlet-mapping>
+
 
 	<ejb-local-ref>
 		<ejb-ref-name>add</ejb-ref-name>

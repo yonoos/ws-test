@@ -197,6 +197,18 @@
 				<version>4.8.1</version>
 				<scope>runtime</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-wadl</artifactId>
+				<version>3.6.2.Final</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.jboss.resteasy</groupId>
+						<artifactId>resteasy-jaxrs</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
 
 
 		</dependencies>
@@ -218,22 +230,9 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<inherited>true</inherited>
-				<!-- <executions>
-					<execution>
-						<id>test</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>post-unit-test</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions> -->
+				<!-- <executions> <execution> <id>test</id> <phase>pre-integration-test</phase> 
+					<goals> <goal>prepare-agent</goal> </goals> </execution> <execution> <id>post-unit-test</id> 
+					<phase>test</phase> <goals> <goal>report</goal> </goals> </execution> </executions> -->
 			</plugin>
 		</plugins>
 
