@@ -52,7 +52,7 @@
 			<dependency>
 				<groupId>javax</groupId>
 				<artifactId>javaee-api</artifactId>
-				<version>7.0</version>
+				<version>8.0</version>
 				<scope>provided</scope>
 			</dependency>
 
@@ -209,6 +209,23 @@
 				</exclusions>
 			</dependency>
 
+			<dependency>
+				<groupId>com.google.api-client</groupId>
+				<artifactId>google-api-client</artifactId>
+				<version>1.30.7</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.api-client</groupId>
+				<artifactId>google-api-client-servlet</artifactId>
+				<version>1.30.7</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.api-client</groupId>
+				<artifactId>google-api-client-jackson2</artifactId>
+				<version>1.30.7</version>
+			</dependency>
 
 
 		</dependencies>

@@ -52,7 +52,7 @@ public class MyStartupEjb {
 
 			}
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
