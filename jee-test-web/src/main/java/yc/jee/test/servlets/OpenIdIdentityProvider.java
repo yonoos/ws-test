@@ -26,13 +26,11 @@ public enum OpenIdIdentityProvider {
 	FACEBOOK {
 		@Override
 		public String getAuthorizationEndpoint() {
-			// TODO Auto-generated method stub
-			return null;
+			return "https://www.facebook.com/v6.0/dialog/oauth";
 		}
 		@Override
 		public String getTokenEndPoint() {
-			// TODO Auto-generated method stub
-			return null;
+			return "https://graph.facebook.com/v6.0/oauth/access_token";
 		}
 		@Override
 		public String getUserInfoEndPoint() {
@@ -41,13 +39,11 @@ public enum OpenIdIdentityProvider {
 		}
 		@Override
 		public String getClientId() {
-			// TODO Auto-generated method stub
-			return null;
+			return "";
 		}
 		@Override
 		public String getClientSecret() {
-			// TODO Auto-generated method stub
-			return null;
+			return "";
 		}
 	},
 	MICROSOFT {

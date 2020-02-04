@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.Principal;
+import java.util.stream.Stream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,7 +39,8 @@ public class OpenIdCallbackServlet2 extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
-			OpenIdIdentityProvider provider = OpenIdIdentityProvider.GOOGLE;
+			String providerName = (String) req.getSession().getAttribute(OpenIdFrontEndServlet.IDENTITY_PROVIDER_INPUT_NAME);
+			OpenIdIdentityProvider provider = OpenIdIdentityProvider.valueOf(providerName);
 
 			StringBuffer buf = req.getRequestURL();
 			if (req.getQueryString() != null) {
@@ -95,10 +97,14 @@ public class OpenIdCallbackServlet2 extends HttpServlet{
 			RefreshToken refreshToken = tokenSuccessResponse.getOIDCTokens().getRefreshToken();
 
 			// Get the access token, the server may also return a refresh token
+			
+			req.getSession().setAttribute(OpenIdFrontEndServlet.USER_INFO, idToken.getJWTClaimsSet().getStringClaim("email"));
+			
 			resp.sendRedirect(req.getRequestURL().toString().replaceFirst(req.getServletPath(),"")+"/openid?user="+idToken.getJWTClaimsSet().getStringClaim("email"));
 			
 			Principal userPrincipal = req.getUserPrincipal();
 			
+
 			System.out.println(userPrincipal);
 			
 			

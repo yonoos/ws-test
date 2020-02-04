@@ -1,6 +1,7 @@
 package yc.jee.test.servlets;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,9 +16,9 @@ public class OpenIdFrontEndServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = -2288095285803803033L;
-	private static final String IDENTITY_PROVIDER_INPUT_NAME="identity_provider"; 
+	public static final String IDENTITY_PROVIDER_INPUT_NAME="identity_provider"; 
 	private static final String IMPLEMENTED_IDENTITY_PROVIDERS_INPUT_NAME = "available_identity_providers";
-	private static final String USER_INFO = "user_info";
+	public static final String USER_INFO = "user_info";
 
 	
 	@Override
@@ -27,6 +28,8 @@ public class OpenIdFrontEndServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String providerName = request.getParameter(OpenIdFrontEndServlet.IDENTITY_PROVIDER_INPUT_NAME);
+		request.getSession().setAttribute(OpenIdFrontEndServlet.IDENTITY_PROVIDER_INPUT_NAME, providerName);
 		response.sendRedirect(request.getContextPath()+"/login2");
 	}
 	
@@ -41,7 +44,7 @@ public class OpenIdFrontEndServlet extends HttpServlet {
 	
 	
 	private String [] getImplementedIdentityProviders(){
-		return new String[] {"google", "mincrosoft","facebook"};
+		return Arrays.stream(OpenIdIdentityProvider.values()).map(e->e.name()).toArray(String[]::new);
 	}
 
 }
