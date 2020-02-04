@@ -14,7 +14,7 @@ import com.google.api.client.extensions.servlet.auth.oauth2.AbstractAuthorizatio
 import com.google.api.client.http.GenericUrl;
 
 @SuppressWarnings("serial")
-@WebServlet(name = "oauth2callback", value = "/oauth2callback")
+@WebServlet(name = "oauth2callback2", value = "/oauth2callback2")
 public class OpenIdCallbackServlet extends AbstractAuthorizationCodeCallbackServlet{
 
 	@Override

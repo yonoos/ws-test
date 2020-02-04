@@ -27,7 +27,7 @@ public class OpenIdFrontEndServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect(request.getContextPath()+"/login");
+		response.sendRedirect(request.getContextPath()+"/login2");
 	}
 	
 	private void setView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
