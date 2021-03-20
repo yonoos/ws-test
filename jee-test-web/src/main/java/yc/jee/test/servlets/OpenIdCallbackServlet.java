@@ -1,6 +1,7 @@
 package yc.jee.test.servlets;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +20,8 @@ public class OpenIdCallbackServlet extends AbstractAuthorizationCodeCallbackServ
 
 	@Override
 	protected AuthorizationCodeFlow initializeFlow() throws IOException {
-		AuthorizationCodeFlow flow = OpenIdAuthorizationBuilder.newFlow(OpenIdIdentityProvider.GOOGLE, "profile", "email");
+		Map<String, OpenIdIdentityProvider> providers = OpenIdIdentityProvider.loadIdProviders();
+		AuthorizationCodeFlow flow = OpenIdAuthorizationBuilder.newFlow(providers.get("GOOGLE"), "profile", "email");
 		return flow;
 	}
 
@@ -43,7 +45,6 @@ public class OpenIdCallbackServlet extends AbstractAuthorizationCodeCallbackServ
 		req.getSession().setAttribute(OpenIdLiterals.USER_INFO, accessToken);
 		resp.sendRedirect(req.getServletContext().getContextPath()+"/openid?token="+accessToken);
 	}
-
 
 	@Override
 	protected void onError(

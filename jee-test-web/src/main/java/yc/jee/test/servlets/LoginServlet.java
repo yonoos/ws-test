@@ -1,6 +1,7 @@
 package yc.jee.test.servlets;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +23,8 @@ public class LoginServlet extends AbstractAuthorizationCodeServlet {
 
 	@Override
 	protected AuthorizationCodeFlow initializeFlow() throws IOException {
-		return OpenIdAuthorizationBuilder.newFlow(OpenIdIdentityProvider.GOOGLE, "profile", "email");
+		Map<String, OpenIdIdentityProvider> providers = OpenIdIdentityProvider.loadIdProviders();
+		return OpenIdAuthorizationBuilder.newFlow(providers.get("GOOGLE"), "profile", "email");
 	}
 	@Override
 	protected String getRedirectUri(HttpServletRequest req) throws ServletException, IOException {

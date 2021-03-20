@@ -3,8 +3,10 @@ package yc.jee.test.servlets;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.security.Principal;
-import java.util.stream.Stream;
+import java.util.Base64;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,8 +41,14 @@ public class OpenIdCallbackServlet2 extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
-			String providerName = (String) req.getSession().getAttribute(OpenIdFrontEndServlet.IDENTITY_PROVIDER_INPUT_NAME);
-			OpenIdIdentityProvider provider = OpenIdIdentityProvider.valueOf(providerName);
+			Map<String, OpenIdIdentityProvider> providers = OpenIdIdentityProvider.loadIdProviders();
+			String providerName = (String) req.getSession().getAttribute(OpenIdLiterals.IDENTITY_PROVIDER_INPUT_NAME);
+			OpenIdIdentityProvider provider = providers.get(providerName);
+			
+			if(provider == null) {
+				 resp.getWriter().write("id provider found found");
+				 return ;
+			}
 
 			StringBuffer buf = req.getRequestURL();
 			if (req.getQueryString() != null) {
@@ -57,8 +65,17 @@ public class OpenIdCallbackServlet2 extends HttpServlet{
 			AuthorizationSuccessResponse successResponse = (AuthorizationSuccessResponse)authrizationResponse;
 
 			// The returned state parameter must match the one send with the request
+			String finalRedirectUrl = null;
 			if (successResponse.getState() != null) {
-				// Unexpected or tampered response, stop!!!
+				finalRedirectUrl = new String(Base64.getUrlDecoder().decode(successResponse.getState().getValue())) ;
+				int urlIndex = finalRedirectUrl.indexOf("#");
+				if(urlIndex > 0) {
+					finalRedirectUrl = finalRedirectUrl.substring(urlIndex+1);
+					finalRedirectUrl = URLDecoder.decode(finalRedirectUrl, "UTF-8");
+				}
+				if(!finalRedirectUrl.toLowerCase().startsWith("http")) {
+					finalRedirectUrl = null;
+				};
 			}
 
 
@@ -98,10 +115,11 @@ public class OpenIdCallbackServlet2 extends HttpServlet{
 
 			// Get the access token, the server may also return a refresh token
 			
-			req.getSession().setAttribute(OpenIdFrontEndServlet.USER_INFO, idToken.getJWTClaimsSet().getStringClaim("email"));
 			
-			resp.sendRedirect(req.getRequestURL().toString().replaceFirst(req.getServletPath(),"")+"/openid?user="+idToken.getJWTClaimsSet().getStringClaim("email"));
-			
+			req.getSession().setAttribute(OpenIdLiterals.USER_INFO, idToken.getJWTClaimsSet().getStringClaim("email"));
+			req.getSession().setAttribute(OpenIdLiterals.USER_GROUPS, idToken.getJWTClaimsSet().getStringListClaim("roles"));
+			finalRedirectUrl = finalRedirectUrl != null ? finalRedirectUrl : req.getRequestURL().toString().replaceFirst(req.getServletPath(),"")+"/openid?user="+idToken.getJWTClaimsSet().getStringClaim("email");
+			resp.sendRedirect(finalRedirectUrl);
 			Principal userPrincipal = req.getUserPrincipal();
 			
 

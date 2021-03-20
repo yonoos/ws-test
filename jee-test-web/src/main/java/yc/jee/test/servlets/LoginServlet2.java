@@ -3,6 +3,8 @@ package yc.jee.test.servlets;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Base64;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,12 +22,16 @@ import com.nimbusds.oauth2.sdk.id.State;
 @WebServlet(name = "login2", value = "/login2")
 public class LoginServlet2 extends HttpServlet {
 
-	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String providerName = (String) req.getSession().getAttribute(OpenIdFrontEndServlet.IDENTITY_PROVIDER_INPUT_NAME);
-		OpenIdIdentityProvider provider = OpenIdIdentityProvider.valueOf(providerName);
+		String providerName = (String) req.getSession().getAttribute(OpenIdLiterals.IDENTITY_PROVIDER_INPUT_NAME);
 		
+		Map<String, OpenIdIdentityProvider> providers = OpenIdIdentityProvider.loadIdProviders();
+		OpenIdIdentityProvider provider = providers.get(providerName);
+		if(provider == null) {
+			 resp.getWriter().write("id provider found found");
+			 return ;
+		}
 		try {
 			// The authorisation endpoint of the server
 			URI authzEndpoint = new URI(provider.getAuthorizationEndpoint());
@@ -34,13 +40,15 @@ public class LoginServlet2 extends HttpServlet {
 			ClientID clientID = new ClientID(provider.getClientId());
 
 			// The requested scope values for the token
-			Scope scope = new Scope("email");
+			Scope scope = new Scope("openid profile email");
 			
 			// The client callback URI, typically pre-registered with the server
 			URI callback = new URI(req.getRequestURL().toString().replaceFirst(req.getServletPath(),"/oauth2callback"));
 
 			// Generate random state string for pairing the response to the request
-			State state = new State(req.getSession().getId());
+			String finalRedirectUrl = req.getParameter(OpenIdLiterals.REDIRECT_URL);
+			String stateStr = req.getSession().getId()+"#"+finalRedirectUrl;
+			State state = new State(Base64.getUrlEncoder().encodeToString(stateStr.getBytes()));
 
 			// Build the request
 			AuthorizationRequest request = new AuthorizationRequest.Builder(
@@ -54,7 +62,7 @@ public class LoginServlet2 extends HttpServlet {
 			// Use this URI to send the end-user's browser to the server
 			URI requestURI = request.toURI();
 			
-			req.getSession().setAttribute(OpenIdFrontEndServlet.IDENTITY_PROVIDER_INPUT_NAME, provider.name());
+			req.getSession().setAttribute(OpenIdLiterals.IDENTITY_PROVIDER_INPUT_NAME, provider.getName());
 			resp.sendRedirect(requestURI.toString());
 			
 		} catch (URISyntaxException e) {

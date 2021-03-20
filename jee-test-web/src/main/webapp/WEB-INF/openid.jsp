@@ -13,6 +13,7 @@
 		<table>
 		   <tr>
 			   <td><p>${user_info}</p></td>
+			   <td><p>${user_groups}</p></td>
 		   <tr>
 			   <td>
 					<select name="identity_provider" >

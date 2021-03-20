@@ -1,7 +1,7 @@
 package yc.jee.test.servlets;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,10 +16,6 @@ public class OpenIdFrontEndServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = -2288095285803803033L;
-	public static final String IDENTITY_PROVIDER_INPUT_NAME="identity_provider"; 
-	private static final String IMPLEMENTED_IDENTITY_PROVIDERS_INPUT_NAME = "available_identity_providers";
-	public static final String USER_INFO = "user_info";
-
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,23 +24,26 @@ public class OpenIdFrontEndServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String providerName = request.getParameter(OpenIdFrontEndServlet.IDENTITY_PROVIDER_INPUT_NAME);
-		request.getSession().setAttribute(OpenIdFrontEndServlet.IDENTITY_PROVIDER_INPUT_NAME, providerName);
-		response.sendRedirect(request.getContextPath()+"/login2");
+		String providerName = request.getParameter(OpenIdLiterals.IDENTITY_PROVIDER_INPUT_NAME);
+		request.getSession().setAttribute(OpenIdLiterals.IDENTITY_PROVIDER_INPUT_NAME, providerName);
+		String currentUrl = request.getRequestURL().toString();
+		response.sendRedirect(request.getContextPath()+"/login2?"+OpenIdLiterals.REDIRECT_URL+"="+currentUrl);
 	}
 	
 	private void setView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		String operator = request.getParameter(IDENTITY_PROVIDER_INPUT_NAME);
-		Object userInfo = request.getSession().getAttribute(USER_INFO);
-		request.setAttribute(USER_INFO, userInfo);
-		request.setAttribute(IDENTITY_PROVIDER_INPUT_NAME, operator);
-		request.setAttribute(IMPLEMENTED_IDENTITY_PROVIDERS_INPUT_NAME, getImplementedIdentityProviders());
+		String operator = request.getParameter(OpenIdLiterals.IDENTITY_PROVIDER_INPUT_NAME);
+		Object userInfo = request.getSession().getAttribute(OpenIdLiterals.USER_INFO);
+		Object userGroups = request.getSession().getAttribute(OpenIdLiterals.USER_GROUPS);
+		request.setAttribute(OpenIdLiterals.USER_INFO, userInfo);
+		request.setAttribute(OpenIdLiterals.USER_GROUPS, userGroups);
+		request.setAttribute(OpenIdLiterals.IDENTITY_PROVIDER_INPUT_NAME, operator);
+		request.setAttribute(OpenIdLiterals.IMPLEMENTED_IDENTITY_PROVIDERS_INPUT_NAME, getImplementedIdentityProviders());
 		this.getServletContext().getRequestDispatcher("/WEB-INF/openid.jsp").forward(request, response);
 	}
 	
-	
-	private String [] getImplementedIdentityProviders(){
-		return Arrays.stream(OpenIdIdentityProvider.values()).map(e->e.name()).toArray(String[]::new);
+	private String [] getImplementedIdentityProviders() throws IOException{
+		Map<String, OpenIdIdentityProvider> providers = OpenIdIdentityProvider.loadIdProviders();
+		return providers.keySet().stream().toArray(String [] :: new);
 	}
 
 }
